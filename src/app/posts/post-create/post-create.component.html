@@ -1,23 +1,13 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-8 mx-auto">
-      <mat-card>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Please Enter Value</mat-label>
-          <textarea
-            matInput
-            rows="8"
-            [(ngModel)]="enteredValue"
-            placeholder="String Value"
-          ></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="onPostAdded()">
-          Save Post
-        </button>
-      </mat-card>
-      <div class="valueDisplay m-3">{{ postValue }}</div>
-    </div>
-  </div>
-</div>
-
-
+<mat-card>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [(ngModel)]="enteredTitle" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Content</mat-label>
+    <textarea matInput rows="8" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onAddPost()">
+    Save Post
+  </button>
+</mat-card>
