@@ -1,5 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { Post } from '../post.model';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-create',
@@ -7,19 +14,23 @@ import { Post } from '../post.model';
   styleUrls: ['./post-create.component.scss'],
 })
 export class PostCreateComponent implements OnInit {
-  constructor() {}
+  constructor(private fb: FormBuilder, private postsService: PostsService) {}
 
   ngOnInit(): void {}
 
-  enteredTitle: string = '';
-  enteredContent: string = '';
-  @Output() postCreated = new EventEmitter<Post>();
+  postForm: FormGroup = this.fb.group({
+    title: ['', Validators.required],
+    content: ['', Validators.required],
+  });
 
-  onAddPost() {
-    const post:Post = {
-      title: this.enteredTitle,
-      content: this.enteredContent,
+  onAddPost(postFormData: any, formDirective: FormGroupDirective) {
+    if (this.postForm.invalid) return;
+    const post: Post = {
+      title: postFormData.value.title,
+      content: postFormData.value.content,
     };
-    this.postCreated.emit(post);
+    this.postsService.setPosts(post);
+    formDirective.resetForm();
+    this.postForm.reset();
   }
 }
