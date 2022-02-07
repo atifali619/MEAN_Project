@@ -25,11 +25,11 @@ export class PostCreateComponent implements OnInit {
 
   onAddPost(postFormData: any, formDirective: FormGroupDirective) {
     if (this.postForm.invalid) return;
-    const post: Post = {
-      title: postFormData.value.title,
-      content: postFormData.value.content,
-    };
-    this.postsService.setPosts(post);
+
+    this.postsService.addPost(
+      postFormData.value.title,
+      postFormData.value.content
+    );
     formDirective.resetForm();
     this.postForm.reset();
   }
